@@ -182,13 +182,14 @@ export default function Home() {
   return (
     <div className="w-full h-screen bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: "url('https://i.imgur.com/TgqaYRH.jpg')" }}>
       {/* Desktop Icons */}
-      <div className="absolute top-4 left-4 grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] max-h-[calc(100vh-4rem)] overflow-y-auto gap-4">
+      <div className="absolute top-1 left-5 grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] max-h-[calc(100vh-4rem)] overflow-y-auto gap-1">
         <DesktopIcon label="Recycle Bin" icon="🗑️" onClick={() => {}} />
         <DesktopIcon label="Messenger" icon="💬" onClick={handleMsnIconClick} />
         <DesktopIcon label="Calculator" icon="🧮" onClick={handleCalculatorIconClick} />
         <DesktopIcon label="Notepad" icon="📝" onClick={handleNotepadIconClick} />
         <DesktopIcon label="Twitter" icon="𝕏" onClick={() => window.open('https://twitter.com/aaronsiim', '_blank')} />
         <DesktopIcon label="GitHub" icon="💻" onClick={() => window.open('https://github.com/aaronsimca/', '_blank')} />
+        <DesktopIcon label="Book" icon="📕" onClick={() => window.open('https://aaronsim.gumroad.com/l/web3cryptotoolkit', '_blank')} />
       </div>
 
       {isMsnOpen && !isMsnMinimized && (
