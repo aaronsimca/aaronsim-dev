@@ -3,8 +3,6 @@
 import { ChevronDown, ChevronRight, ChevronUp, Minus, Square, X } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export default function Home() {
   const [onlineExpanded, setOnlineExpanded] = useState(true)
   const [offlineExpanded, setOfflineExpanded] = useState(true)
@@ -26,7 +24,7 @@ export default function Home() {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
   const [calculatorDisplay, setCalculatorDisplay] = useState("0")
   const [calculatorMemory, setCalculatorMemory] = useState(0)
-  const [calculatorOperation, setCalculatorOperation] = useState(null)
+  const [calculatorOperation, setCalculatorOperation] = useState<string | null>(null)
   const [calculatorPrevValue, setCalculatorPrevValue] = useState(null)
   const [calculatorWaitingForOperand, setCalculatorWaitingForOperand] = useState(false)
   const [notepadContent, setNotepadContent] = useState("")
