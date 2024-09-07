@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronRight, ChevronUp, Minus, Square, X } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 
 export default function Home() {
   const [onlineExpanded, setOnlineExpanded] = useState(true)
@@ -25,7 +25,7 @@ export default function Home() {
   const [calculatorDisplay, setCalculatorDisplay] = useState("0")
   const [calculatorMemory, setCalculatorMemory] = useState(0)
   const [calculatorOperation, setCalculatorOperation] = useState<string | null>(null)
-  const [calculatorPrevValue, setCalculatorPrevValue] = useState(null)
+  const [calculatorPrevValue, setCalculatorPrevValue] = useState<number | null>(null)
   const [calculatorWaitingForOperand, setCalculatorWaitingForOperand] = useState(false)
   const [notepadContent, setNotepadContent] = useState("")
   const msnWindowRef = useRef<HTMLDivElement>(null)
@@ -57,7 +57,7 @@ export default function Home() {
     }
   }
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isDraggingMsn) {
       setMsnPosition({
         x: e.clientX - dragOffset.x,
@@ -74,7 +74,7 @@ export default function Home() {
         y: e.clientY - dragOffset.y
       })
     }
-  }
+  }, [isDraggingMsn, isDraggingCalculator, isDraggingNotepad, dragOffset])
 
   const handleMouseUp = () => {
     setIsDraggingMsn(false)
@@ -89,7 +89,7 @@ export default function Home() {
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isDraggingMsn, isDraggingCalculator, isDraggingNotepad, dragOffset, handleMouseMove])
+  }, [handleMouseMove, handleMouseUp])
 
   const handleMsnIconClick = () => {
     setIsMsnOpen(true)
@@ -129,7 +129,7 @@ export default function Home() {
     } else if (value === '=') {
       if (calculatorOperation && calculatorPrevValue !== null) {
         const currentValue = parseFloat(calculatorDisplay)
-        let result
+        let result: number
         switch (calculatorOperation) {
           case '+':
             result = calculatorPrevValue + currentValue
@@ -146,8 +146,10 @@ export default function Home() {
           case '%':
             result = calculatorPrevValue % currentValue
             break
+          default:
+            result = currentValue
         }
-        setCalculatorDisplay((result ?? 0).toString())
+        setCalculatorDisplay(result.toString())
         setCalculatorOperation(null)
         setCalculatorPrevValue(null)
         setCalculatorWaitingForOperand(true)
