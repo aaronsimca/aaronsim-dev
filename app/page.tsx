@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { ChevronDown, ChevronRight, ChevronUp, Minus, Square, X } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 export default function Home() {
   const [onlineExpanded, setOnlineExpanded] = useState(true)
@@ -90,7 +91,7 @@ export default function Home() {
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isDraggingMsn, isDraggingCalculator, isDraggingNotepad, dragOffset])
+  }, [isDraggingMsn, isDraggingCalculator, isDraggingNotepad, dragOffset, handleMouseMove])
 
   const handleMsnIconClick = () => {
     setIsMsnOpen(true)
@@ -181,65 +182,13 @@ export default function Home() {
   return (
     <div className="w-full h-screen bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: "url('https://i.imgur.com/TgqaYRH.jpg')" }}>
       {/* Desktop Icons */}
-      <div className="absolute top-4 left-4 flex flex-col items-center space-y-4">
-        <button className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" aria-label="Recycle Bin">
-          <div className="w-16 h-16 flex items-center justify-center">
-            <span className="text-4xl" aria-hidden="true">🗑️</span>
-          </div>
-          <span className="mt-1 text-xs font-semibold">Recycle Bin</span>
-        </button>
-        <button 
-          className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" 
-          aria-label="MSN Messenger" 
-          onClick={handleMsnIconClick}
-        >
-          <div className="w-16 h-16 flex items-center justify-center">
-            <span className="text-4xl" aria-hidden="true">💬</span>
-          </div>
-          <span className="mt-1 text-xs font-semibold">Messenger</span>
-        </button>
-        <button 
-          className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" 
-          aria-label="Calculator" 
-          onClick={handleCalculatorIconClick}
-        >
-          <div className="w-16 h-16 flex items-center justify-center">
-            <span className="text-4xl" aria-hidden="true">🧮</span>
-          </div>
-          <span className="mt-1 text-xs font-semibold">Calculator</span>
-        </button>
-        <button 
-          className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" 
-          aria-label="Notepad" 
-          onClick={handleNotepadIconClick}
-        >
-          <div className="w-16 h-16 flex items-center justify-center">
-            <span className="text-4xl" aria-hidden="true">📝</span>
-          </div>
-          <span className="mt-1 text-xs font-semibold">Notepad</span>
-        </button>
-    
-        <button 
-          className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" 
-          aria-label="Twitter" 
-          onClick={() => window.open('https://twitter.com/aaronsiim', '_blank')}
-        >
-          <div className="w-16 h-16 flex items-center justify-center">
-            <span className="text-4xl" aria-hidden="true">𝕏</span>
-          </div>
-          <span className="mt-1 text-xs font-semibold">Twitter</span>
-        </button>
-
-        <button 
-          className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" 
-          aria-label="Twitter" 
-          onClick={() => window.open('https://github.com/aaronsimca/', '_blank')}
-        >
-          <div className="w-16 h-16 flex items-center justify-center">
-            <span className="text-4xl" aria-hidden="true">💻</span>
-          </div>
-          <span className="mt-1 text-xs font-semibold">Github</span>
-        </button>
+      <div className="absolute top-4 left-4 grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] max-h-[calc(100vh-4rem)] overflow-y-auto gap-4">
+        <DesktopIcon label="Recycle Bin" icon="🗑️" onClick={() => {}} />
+        <DesktopIcon label="Messenger" icon="💬" onClick={handleMsnIconClick} />
+        <DesktopIcon label="Calculator" icon="🧮" onClick={handleCalculatorIconClick} />
+        <DesktopIcon label="Notepad" icon="📝" onClick={handleNotepadIconClick} />
+        <DesktopIcon label="Twitter" icon="𝕏" onClick={() => window.open('https://twitter.com/aaronsiim', '_blank')} />
+        <DesktopIcon label="GitHub" icon="💻" onClick={() => window.open('https://github.com/aaronsimca/', '_blank')} />
       </div>
 
       {isMsnOpen && !isMsnMinimized && (
@@ -552,5 +501,20 @@ export default function Home() {
         </div>
       </div>
     </div>
+  )
+}
+
+function DesktopIcon({ label, icon, onClick }: { label: string; icon: string; onClick: () => void }) {
+  return (
+    <button 
+      onClick={onClick}
+      className="flex flex-col items-center text-white text-shadow focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+      aria-label={label}
+    >
+      <div className="w-16 h-16 flex items-center justify-center">
+        <span className="text-4xl" aria-hidden="true">{icon}</span>
+      </div>
+      <span className="mt-1 text-xs font-semibold">{label}</span>
+    </button>
   )
 }
