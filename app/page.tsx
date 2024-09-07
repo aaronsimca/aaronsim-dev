@@ -446,7 +446,7 @@ export default function Home() {
               <span className="text-blue-800">Help</span>
             </div>
             <textarea 
-              className="w-full h-80 p-1 text-sm resize-none focus:outline-none border border-gray-400"
+              className="w-full h-80 p-1 text-sm resize-none focus:outline-none border border-gray-400 text-black"
               value={notepadContent}
               onChange={(e) => setNotepadContent(e.target.value)}
               placeholder="Type here..."
