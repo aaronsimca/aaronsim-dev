@@ -181,7 +181,7 @@ export default function Home() {
 
   return (
     
-    <div className="w-full h-screen bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: "url('https://i.imgur.com/TgqaYRH.jpg')" }}>
+    <div className="w-full h-screen bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: "url('https://i.imgur.com/zXSWNp3.jpeg')" }}>
       {/* Desktop Icons */}
       <div className="absolute top-1 left-5 grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] grid-rows-[repeat(auto-fill,minmax(80px,1fr))] max-h-[calc(100vh-2rem)] max-w-[240px] overflow-y-auto gap-1">
         <DesktopIcon label="Recycle Bin" icon="🗑️" onClick={() => {}} />
